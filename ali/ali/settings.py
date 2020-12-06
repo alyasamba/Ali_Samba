@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
+from decouple import config
+config.encoding = 'cp1251'
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,6 +29,8 @@ SECRET_KEY = 'cz47pukc6_i0k*-a3&safts80l6qf@+b+sawv!jf!0zya+q=44'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# SECRET_KEY = config('SECRET_KEY')
+# DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -146,8 +153,15 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "sopesherifabdoulah@gmail.com"
 EMAIL_HOST_PASSWORD = '@ly@S@mb@1926'
+EMAIL_USE_TLS = True
 
-
+"""
+EMAIL_HOST = config('EMAIL_HOST', default='localhost')
+EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
+"""
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 CKEDITOR_CONFIGS = {
@@ -157,3 +171,5 @@ CKEDITOR_CONFIGS = {
         'width': '100%',
     },
 }
+
+django_heroku.settings(locals())
